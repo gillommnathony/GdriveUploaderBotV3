@@ -11,7 +11,7 @@ from time import sleep
 from pyrogram import Client, filters
 from bot.helpers.sql_helper import gDriveDB, idsDB
 from bot.helpers.utils import CustomFilters, humanbytes
-from bot.helpers.downloader import download_file, utube_dl
+from bot.helpers.downloader import download_file, utube_dl, download_fb
 from bot.helpers.gdrive_utils import GoogleDrive 
 from bot import DOWNLOAD_DIRECTORY, LOGGER
 from bot.config import Messages, BotCommands
@@ -54,7 +54,7 @@ def _download(client, message):
         dl_path = DOWNLOAD_DIRECTORY
         LOGGER.info(f'Download:{user_id}: {link}')
         sent_message.edit(Messages.DOWNLOADING.format(link))
-        result, file_path = download_file(link, dl_path)
+        result, file_path = download_fb(link, dl_path)
 
         if os.path.exists(file_path):
           sent_message.edit(Messages.DOWNLOADED_SUCCESSFULLY.format(os.path.basename(file_path), humanbytes(os.path.getsize(file_path))))
