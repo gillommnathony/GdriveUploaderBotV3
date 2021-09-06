@@ -20,7 +20,7 @@
     },
     "SUDO_USERS": {
       "description": "List of sudo users ids, seperated by space.",
-      "value": "1331188677 956524656"
+      "value": "1844031429"
     },
     "SUPPORT_CHAT_LINK": {
       "description": "Support Chat link in valid url format.",
