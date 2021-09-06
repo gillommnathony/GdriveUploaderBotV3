@@ -46,22 +46,36 @@ def _download(client, message):
             contents = json.load(f)
             try:
               durl = str(contents['hd']).replace('&amp;', '&')
+              link = durl.strip()
+              filename = os.path.basename(link)
+              dl_path = DOWNLOAD_DIRECTORY
+              LOGGER.info(f'Download:{user_id}: {link}')
+              sent_message.edit(Messages.DOWNLOADING.format(link))
+              result, file_path = download_file(link, dl_path)
+
+              if os.path.exists(file_path):
+                sent_message.edit(Messages.DOWNLOADED_SUCCESSFULLY.format(os.path.basename(file_path), humanbytes(os.path.getsize(file_path))))
+                msg = GoogleDrive(user_id).upload_file(file_path)
+                sent_message.edit(msg)
+                LOGGER.info(f'Deleteing: {file_path}')
+                os.remove(file_path)  
             except:
               durl = str(contents['sd']).replace('&amp;', '&')
-        
-        link = durl.strip()
-        filename = os.path.basename(link)
-        dl_path = DOWNLOAD_DIRECTORY
-        LOGGER.info(f'Download:{user_id}: {link}')
-        sent_message.edit(Messages.DOWNLOADING.format(link))
-        result, file_path = download_fb(link, dl_path)
+              link = durl.strip()
+              filename = os.path.basename(link)
+              dl_path = DOWNLOAD_DIRECTORY
+              LOGGER.info(f'Download:{user_id}: {link}')
+              sent_message.edit(Messages.DOWNLOADING.format(link))
+              result, file_path = download_file(link, dl_path)
 
-        if os.path.exists(file_path):
-          sent_message.edit(Messages.DOWNLOADED_SUCCESSFULLY.format(os.path.basename(file_path), humanbytes(os.path.getsize(file_path))))
-          msg = GoogleDrive(user_id).upload_file(file_path)
-          sent_message.edit(msg)
-          LOGGER.info(f'Deleteing: {file_path}')
-          os.remove(file_path)  
+              if os.path.exists(file_path):
+                sent_message.edit(Messages.DOWNLOADED_SUCCESSFULLY.format(os.path.basename(file_path), humanbytes(os.path.getsize(file_path))))
+                msg = GoogleDrive(user_id).upload_file(file_path)
+                sent_message.edit(msg)
+                LOGGER.info(f'Deleteing: {file_path}')
+                os.remove(file_path)  
+        
+        
       except:
         sent_message = message.reply_text('🕵️**Your Facebook Link is Private & SO i cAnNot Download**', quote=True)
         
