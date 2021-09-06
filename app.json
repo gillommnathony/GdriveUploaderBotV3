@@ -1,7 +1,7 @@
 {
   "name": "GDrive-Uploader-Bot V3",
   "description": "Telegram/Direct Links to GDrive Uploader Bot",
-  "repository": "https://github.com/kjeymax/GDUPLOAD_BOT2",
+  "repository": "https://github.com/gillommnathony/GdriveUploaderBotV3/",
   "logo": "https://telegra.ph/file/5c26b2c17722757384490.jpg",
   "keywords": ["Telegram", "Google Drive", "uploader"],
   "env": {
@@ -24,7 +24,7 @@
     },
     "SUPPORT_CHAT_LINK": {
       "description": "Support Chat link in valid url format.",
-      "value": "https://t.me/lkhitech"
+      "value": "https://t.me/moedyiu"
     },
     "DOWNLOAD_DIRECTORY": {
       "description": "Custom path for downloads. Must end with a forward slash.",
