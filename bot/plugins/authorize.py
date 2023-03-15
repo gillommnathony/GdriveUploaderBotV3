@@ -14,7 +14,7 @@ from bot.helpers.utils import CustomFilters
 
 
 OAUTH_SCOPE = "https://www.googleapis.com/auth/drive"
-REDIRECT_URI = "urn:ietf:wg:oauth:2.0:oob"
+REDIRECT_URI = "https://khainee.github.io/G-Drive-Bot/gdrive-auth"
 
 flow = None
 
@@ -30,10 +30,13 @@ async def _auth(client, message):
     global flow
     try:
       flow = OAuth2WebServerFlow(
-              G_DRIVE_CLIENT_ID,
-              G_DRIVE_CLIENT_SECRET,
-              OAUTH_SCOPE,
-              redirect_uri=REDIRECT_URI
+              response_type='code',
+              access_type='offline',
+              prompt='consent',
+              client_id=G_DRIVE_CLIENT_ID,
+              client_secret=G_DRIVE_CLIENT_SECRET,
+              scope=OAUTH_SCOPE,
+              redirect_uri=REDIRECT_URI,
       )
       auth_url = flow.step1_get_authorize_url()
       LOGGER.info(f'AuthURL:{user_id}')
