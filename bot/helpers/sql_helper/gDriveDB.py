@@ -1,7 +1,7 @@
 import pickle
 import threading
 from sqlalchemy import BigInteger, Column, Integer, LargeBinary
-from bot.helpers.sql_helper import BASE
+from bot.helpers.sql_helper import BASE, SESSION
 
 class gDriveCreds(BASE):
     __tablename__ = "gDrive"
