@@ -18,7 +18,6 @@ try:
     API_HASH = os.environ.get('API_HASH')
     DATABASE_URL = os.environ.get('DATABASE_URL')
     SUDO_USERS = os.environ.get('SUDO_USERS')
-    SUPPORT_CHAT_LINK = os.environ.get('SUPPORT_CHAT_LINK')
     DOWNLOAD_DIRECTORY = os.environ.get("DOWNLOAD_DIRECTORY", "./downloads/")
     G_DRIVE_CLIENT_ID = os.environ.get("G_DRIVE_CLIENT_ID")
     G_DRIVE_CLIENT_SECRET = os.environ.get("G_DRIVE_CLIENT_SECRET")
@@ -29,7 +28,6 @@ try:
     API_HASH = config.API_HASH
     DATABASE_URL = config.DATABASE_URL
     SUDO_USERS = config.SUDO_USERS
-    SUPPORT_CHAT_LINK = config.SUPPORT_CHAT_LINK
     DOWNLOAD_DIRECTORY = config.DOWNLOAD_DIRECTORY
     G_DRIVE_CLIENT_ID = config.G_DRIVE_CLIENT_ID
     G_DRIVE_CLIENT_SECRET = config.G_DRIVE_CLIENT_SECRET
