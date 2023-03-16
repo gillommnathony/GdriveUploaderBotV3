@@ -1,4 +1,3 @@
-from bot import SUPPORT_CHAT_LINK
 from pyrogram import Client, filters
 from bot.config import Messages as tr
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
@@ -41,8 +40,7 @@ def map(pos):
 
         button = [
             [
-             InlineKeyboardButton(text = 'Support Chat', url = "https://t.me/moedyiu"),
-             InlineKeyboardButton(text = 'Feature Request', url = "https://github.com/gillommnathony/GdriveUploaderBotV3")
+             InlineKeyboardButton(text = 'Support Chat', url = "https://t.me/drivetalkchannel"),
             ],
             [InlineKeyboardButton(text = '<--', callback_data = f"help+{pos-1}")]
 
