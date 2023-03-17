@@ -37,8 +37,9 @@ def utube_dl(link):
     'noplaylist' : True,
     'logger': LOGGER,
     'format': 'bestvideo+bestaudio/best',
-    'geo_bypass_country': 'IN'
-  }
+    'geo_bypass_country': 'IN',
+    'verbose': True
+}
   with youtube_dl.YoutubeDL(ytdl_opts) as ytdl:
     try:
       meta = ytdl.extract_info(link, download=True)
