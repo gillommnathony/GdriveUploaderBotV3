@@ -17,3 +17,4 @@ html5lib
 lk21
 beautifulsoup4
 lxml
+pytube
