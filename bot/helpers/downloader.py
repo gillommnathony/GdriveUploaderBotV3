@@ -6,6 +6,7 @@ from pySmartDL import SmartDL
 from urllib.error import HTTPError
 from youtube_dl import DownloadError
 from bot import DOWNLOAD_DIRECTORY, LOGGER
+from pytube import YouTube
 
 
 def download_file(url, dl_path):
@@ -30,23 +31,31 @@ def download_fb(url, dl_path):
   except HTTPError as error:
     return False, error
 
-
 def utube_dl(link):
-  ytdl_opts = {
-    'outtmpl' : os.path.join(DOWNLOAD_DIRECTORY, '%(title)s'),
-    'noplaylist' : True,
-    'logger': LOGGER,
-    'format': 'bestvideo+bestaudio/best',
-    'geo_bypass_country': 'IN',
-    'verbose': True
-}
-  with youtube_dl.YoutubeDL(ytdl_opts) as ytdl:
+    ytdl_opts = {
+        'outtmpl' : os.path.join(DOWNLOAD_DIRECTORY, '%(title)s'),
+        'noplaylist' : True,
+        'logger': LOGGER,
+        'format': 'bestvideo+bestaudio/best',
+        'geo_bypass_country': 'IN',
+        'verbose': True
+    }
     try:
-      meta = ytdl.extract_info(link, download=True)
+        with youtube_dl.YoutubeDL(ytdl_opts) as ytdl:
+            meta = ytdl.extract_info(link, download=True)
+            for path in glob.glob(os.path.join(DOWNLOAD_DIRECTORY, '*')):
+                if path.endswith(('.avi', '.mov', '.flv', '.wmv', '.3gp','.mpeg', '.webm', '.mp4', '.mkv')) and \
+                        path.startswith(ytdl.prepare_filename(meta)):
+                    return True, path
     except DownloadError as e:
-      return False, str(e)
-    for path in glob.glob(os.path.join(DOWNLOAD_DIRECTORY, '*')):
-      if path.endswith(('.avi', '.mov', '.flv', '.wmv', '.3gp','.mpeg', '.webm', '.mp4', '.mkv')) and \
-          path.startswith(ytdl.prepare_filename(meta)):
-        return True, path
-    return False, 'Something went wrong! No video file exists on server.'
+        print(str(e))
+    try:
+        yt = YouTube(link)
+        stream = yt.streams.filter(progressive=True, file_extension='mp4').order_by('resolution').desc().first()
+        if stream is None:
+            return False, 'No video file exists on server'
+        else:
+            stream.download(DOWNLOAD_DIRECTORY)
+            return True, os.path.join(DOWNLOAD_DIRECTORY, stream.default_filename)
+    except Exception as e:
+        return False, str(e)
